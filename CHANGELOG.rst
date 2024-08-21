@@ -2,6 +2,11 @@
 Changelog
 =========
 
+Version 0.0.5
+=============
+
+- Fix date and datetime conversion for numpy scalars
+
 Version 0.0.4
 =============
 
