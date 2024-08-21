@@ -5,13 +5,12 @@
 Module provides function to convert julian dates into other date formats.
 """
 
-
 import datetime
+
 import numpy as np
 
-from cadati.np_date import dt2cal
 from cadati.check_date import is_leap_year
-
+from cadati.np_date import dt2cal
 
 # leap year
 days_past = np.array([0, 31, 60, 91, 121, 152, 182, 213,
@@ -198,9 +197,7 @@ def julian2date(jd, return_doy=False, doy_leap_year=True):
     min_julian = 2299160
     max_julian = 1827933925
 
-    is_single_value = False
-    if type(jd) in (float, int):
-        is_single_value = True
+    is_single_value = np.isscalar(jd)
 
     julian = np.atleast_1d(np.array(jd, dtype=float))
 
@@ -270,7 +267,7 @@ def jd2dt(jd):
     dt : numpy.datetime64[ms]
         Array of dates in datetime64[ms] format.
     """
-    dt = ((((jd - 2440587.5)*24.*3600.*1e6).astype('datetime64[us]')
+    dt = ((((jd - 2440587.5) * 24. * 3600. * 1e6).astype('datetime64[us]')
            + np.timedelta64(500, 'us')).astype('datetime64[ms]'))
 
     return dt
