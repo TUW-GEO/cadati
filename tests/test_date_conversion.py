@@ -21,7 +21,6 @@ from cadati.jd_date import julian2datetime, julian2date, julday, caldat
 class TestDateFunctions(unittest.TestCase):
 
     def setUp(self):
-
         years = np.arange(2000, 2012)
         months = np.arange(1, 13)
         days = np.arange(1, 13)
@@ -179,6 +178,22 @@ def test_julian2date():
     assert ms == 807989
 
 
+def test_julian2date_numpy_scalar():
+    """
+    Test julian2date numpy scalar.
+    """
+    year, month, day, hour, minute, second, ms = julian2date(np.float64(2457533.9306828701))
+
+    assert type(year) == int
+    assert year == 2016
+    assert month == 5
+    assert day == 25
+    assert hour == 10
+    assert minute == 20
+    assert second == 10
+    assert ms == 999976
+
+
 def test_julian2date_single_array():
     """
     Test julian2date single array.
@@ -225,6 +240,15 @@ def test_julian2datetime():
     assert dt == dt_should
 
 
+def test_julian2datetime_numpy_scalar():
+    """
+    Test julian2datetime for numpy scalar.
+    """
+    dt = julian2datetime(np.float64(2457533.9306828701))
+    dt_should = datetime.datetime(2016, 5, 25, 10, 20, 10, 999976)
+    assert np.all(dt == dt_should)
+
+
 def test_julian2datetime_single_array():
     """
     Test julian2datetime for single array.
@@ -248,6 +272,7 @@ def test_julian2datetime_array():
     assert type(dt) == np.ndarray
     assert np.all(dt == dt_should)
 
+
 def test_dt2days():
     """
     Test dt2days conversion.
@@ -256,15 +281,17 @@ def test_dt2days():
 
     assert dt == days2dt(dt2days(dt))
 
+
 def test_dt2days_array():
     """
     Test dt2days array conversion.
     """
     dt = np.arange('2021-09-24 08:00:00',
                    '2021-09-24 11:20:00',
-                    np.timedelta64(20,'m'), dtype='datetime64')
+                   np.timedelta64(20, 'm'), dtype='datetime64')
 
     assert np.all(dt == days2dt(dt2days(dt)))
+
 
 def test_days2dt():
     """
@@ -273,6 +300,7 @@ def test_days2dt():
     days = 44227.12121
 
     assert days == dt2days(days2dt(days))
+
 
 def test_days2dt_array():
     """
