@@ -39,5 +39,5 @@ We are happy if you want to contribute. Please raise an issue explaining what is
 Note
 ====
 
-This project has been set up using PyScaffold 3.2.3. For details and usage
+This project has been set up using PyScaffold 4.5. For details and usage
 information on PyScaffold see https://pyscaffold.org/.
